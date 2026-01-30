@@ -30,6 +30,7 @@ jobs:
           curl -sSLf "$MIHOMO_URL" -o mihomo.gz
           gunzip mihomo.gz
           chmod +x mihomo
+          curl -sSLf https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/tif-onlydomains.txt -o Tif.txt
           curl -sSLf https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/ultimate-onlydomains.txt -o TempUltimate.txt
           curl -sSLf https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro.plus-onlydomains.txt -o TempProPlus.txt
           curl -sSLf https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro-onlydomains.txt -o TempPro.txt
@@ -39,6 +40,7 @@ jobs:
           sed 's/^/+./' TempProPlusNew.txt > HageziProPlus.txt
           grep -v '^#' TempPro.txt > TempProNew.txt
           sed 's/^/+./' TempProNew.txt > HageziPro.txt
+          ./mihomo convert-ruleset domain text Tif.txt Tif.mrs
           ./mihomo convert-ruleset domain text HageziUltimate.txt HageziUltimate.mrs
           ./mihomo convert-ruleset domain text HageziProPlus.txt HageziProPlus.mrs
           ./mihomo convert-ruleset domain text HageziPro.txt HageziPro.mrs
